@@ -21,7 +21,7 @@ public class TriFrame extends JFrame
 	public void setupFrame()
 	{
 		this.setContentPane(appPanel);		
-		this.setTitle("Window title will go here");
+		this.setTitle("Triangular Arbitrage Bot");
 		this.setSize(500, 500);
 		this.setVisible(true);
 	}
