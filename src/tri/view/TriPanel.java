@@ -66,7 +66,7 @@ public class TriPanel extends JPanel
 			public void actionPerformed(ActionEvent click)
 			{
 				appController.passToTribot(inputArea.getText());
-				outputField.setText("");//Add method of calculation in the blank quotes <------
+				outputField.setText(appController.passArbitrage());//Add method of calculation in the blank quotes <------
 			}
 		});
 	}
