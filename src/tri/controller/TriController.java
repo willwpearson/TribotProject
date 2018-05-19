@@ -24,6 +24,15 @@ public class TriController
 		tribot.saveToDrive(url);
 	}
 	
+	public String passArbitrage()
+	{
+		String outputFinal = "";
+		
+		outputFinal = tribot.calculateArbitrage();
+		
+		return outputFinal;
+	}
+	
 	public void handleErrors(Exception error)
 	{
 		System.out.println("There was an error.");

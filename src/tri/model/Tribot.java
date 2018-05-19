@@ -16,4 +16,13 @@ public class Tribot
 	{
 		
 	}
+	
+	public String calculateArbitrage()
+	{
+		String values = "";
+		
+		//May need list for this, output the list to the view as a String. Use multiple lists or 2DArray to coordinate matching values.
+		
+		return values;
+	}
 }
