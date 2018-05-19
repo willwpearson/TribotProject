@@ -18,4 +18,14 @@ public class TriController
 	{
 		
 	}
+	
+	public void passToTribot(String url)
+	{
+		tribot.saveToDrive(url);
+	}
+	
+	public void handleErrors(Exception error)
+	{
+		System.out.println("There was an error.");
+	}
 }

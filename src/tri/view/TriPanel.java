@@ -61,6 +61,13 @@ public class TriPanel extends JPanel
 	
 	public void setupListeners()
 	{
-		
+		inputButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent click)
+			{
+				appController.passToTribot(inputArea.getText());
+				outputField.setText("");//Add method of calculation in the blank quotes <------
+			}
+		});
 	}
 }
