@@ -22,7 +22,7 @@ public class Tribot
 	private Calendar time;
 	
 	private List<String> rawInputVals;
-	private List<String> sortedArbPairs;
+	private List<String> finalArbTrio;
 	private HashMap<String, Double> arbVals;
 	private HashMap<Integer, String> arbPairs;
 	
@@ -35,7 +35,7 @@ public class Tribot
 	public Tribot()
 	{	
 		rawInputVals = new ArrayList<String>();
-		sortedArbPairs = new ArrayList<String>();
+		finalArbTrio = new ArrayList<String>();
 		arbVals = new HashMap<String, Double>();
 		arbPairs = new HashMap<Integer, String>();
 		
@@ -124,8 +124,9 @@ public class Tribot
 		}
 		
 		List<String> tempList = new ArrayList<String>(arbTrios);
+		arbTrios.clear();
 		
-		//Naming Convention: First # is the first pair, second # is the half of the pair; first or second.
+		//Naming Convention: First # is the pair, second # is the half of the pair; first or second.
 		
 		//First Value
 		for(int i = 0; i < tempList.size(); i++)
@@ -152,7 +153,7 @@ public class Tribot
 							
 							if(temp1_1.equals(temp3_2))
 							{
-								String trioToAdd = temp1_1 + " " + temp2_1 + " " + temp3_1;
+								String trioToAdd = temp1_1 + "_" + temp1_2 + " " + temp2_1 + "_" + temp2_2 + " " + temp3_1 + "_" + temp3_2;
 								
 								arbTrios.add(trioToAdd);
 							}
@@ -167,13 +168,33 @@ public class Tribot
 	
 	public List<String> calculateArbitrage()
 	{
-		Scanner trioScanner = new Scanner(calculateArbitrageTrios().toString());
+		List<String> arbTrios = calculateArbitrageTrios();
 		
-		while(trioScanner.hasNext())
+		for(int i = 0; i < arbTrios.size(); i++)
 		{
+			Scanner trioScanner = new Scanner(arbTrios.get(i));
 			
+			//Retrieve values for each part of the trio.
+			Double firstPair = arbVals.get(trioScanner.next());
+			Double secondPair = arbVals.get(trioScanner.next());
+			Double thirdPair = arbVals.get(trioScanner.next());
+			
+			Double arbGap = calculateGap(firstPair, secondPair, thirdPair);
+			
+			finalArbTrio.add(arbTrios.get(i) + ", " + arbGap);
+			
+			trioScanner.close();
 		}
 		
-		return sortedArbPairs;
+		return finalArbTrio;
+	}
+	
+	public Double calculateGap(Double first, Double second, Double third)
+	{
+		Double gapFinal = 0.0;
+		
+		gapFinal = (((1 / first) * 0.9975) * ((1 / second) * 0.9975) * ((1/ third) * 0.9975)) - 1;
+		
+		return gapFinal;
 	}
 }
