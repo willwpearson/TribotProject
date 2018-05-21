@@ -16,7 +16,8 @@ public class Tribot
 	private TriController appController;
 	
 	private List<String> rawInputVals;
-	private HashMap<String, Integer> sortedArbVals;
+	private List<String> sortedArbPairs;
+	private HashMap<String, Double> arbVals;
 	
 	private Scanner appScanner;
 	private URL valueSite;
@@ -27,17 +28,38 @@ public class Tribot
 	public Tribot()
 	{	
 		rawInputVals = new ArrayList<String>();
-		sortedArbVals = new HashMap<String, Integer>();
+		sortedArbPairs = new ArrayList<String>();
+		arbVals = new HashMap<String, Double>();
 	}
 	
-	public HashMap<String, Integer> readToListFromDoc()
+	public HashMap<String, Double> readToListFromDoc()
 	{
 		arbitrageFile = IOController.loadFromFile(appController, fileName);
 		
-		//currencyPair, last, lowestAsk, highestBid, percentChange, baseVolume, quoteVolume, isFrozen, 24hrHigh, 24hrLow
+		appScanner = new Scanner(arbitrageFile);
+		//While loop for the scanner to gather the data.
+		while(appScanner.hasNext())
+		{
+			//currencyPair, last
+			String currencyPair = "";
+			double last = 0.0;
+			//Checker for doubles because we only need the first
+			boolean firstDouble = true;
+			
+			if(!appScanner.hasNextDouble())
+			{
+				currencyPair = appScanner.next();
+			}
+			if(appScanner.hasNextDouble() && firstDouble == true)
+			{
+				firstDouble = false;
+				last = appScanner.nextDouble();
+			}
+			
+			arbVals.put(currencyPair, last);
+		}
 		
-		
-		return sortedArbVals;
+		return arbVals;
 	}
 	
 	public void saveToDrive(String url)

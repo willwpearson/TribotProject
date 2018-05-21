@@ -26,7 +26,7 @@ public class TriPanel extends JPanel
 		this.appController = appController;
 		appLayout = new SpringLayout();
 		
-		inputButton = new JButton("Input Website URL");
+		inputButton = new JButton("Input Poloniex URL");
 		outputField = new JTextField();
 		inputArea = new JTextArea();
 		
