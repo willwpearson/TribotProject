@@ -117,14 +117,49 @@ public class Tribot
 		{
 			String arbitrageTrioValue = "";
 			String arbPair = "";
-			String value = "";
 			
 			arbPair = arbPairs.get(i);
-			value = arbVals.get(arbPair).toString();
 			
-			arbitrageTrioValue = arbPair + "," + value;
-			
-			arbTrios.add(arbitrageTrioValue);
+			arbTrios.add(arbPair);
+		}
+		
+		List<String> tempList = new ArrayList<String>(arbTrios);
+		
+		//Naming Convention: First # is the first pair, second # is the half of the pair; first or second.
+		
+		//First Value
+		for(int i = 0; i < tempList.size(); i++)
+		{
+			String temp1_2 = tempList.get(i).substring(4);
+			//Second Value
+			for(int j = 1; j < tempList.size(); j++)
+			{
+				String temp2_1 = tempList.get(j).substring(0, 3);
+				
+				if(temp1_2.equals(temp2_1))
+				{
+					String temp2_2 = tempList.get(j).substring(4);
+					
+					//Third Value
+					for(int k = 2; k < tempList.size(); k++)
+					{
+						String temp3_1 = tempList.get(i).substring(0, 3);
+						
+						if(temp2_2.equals(temp3_1))
+						{
+							String temp1_1 = tempList.get(i).substring(0, 3);
+							String temp3_2 = tempList.get(k).substring(4);
+							
+							if(temp1_1.equals(temp3_2))
+							{
+								String trioToAdd = temp1_1 + " " + temp2_1 + " " + temp3_1;
+								
+								arbTrios.add(trioToAdd);
+							}
+						}
+					}
+				}
+			}
 		}
 		
 		return arbTrios;
@@ -132,7 +167,12 @@ public class Tribot
 	
 	public List<String> calculateArbitrage()
 	{
+		Scanner trioScanner = new Scanner(calculateArbitrageTrios().toString());
 		
+		while(trioScanner.hasNext())
+		{
+			
+		}
 		
 		return sortedArbPairs;
 	}
