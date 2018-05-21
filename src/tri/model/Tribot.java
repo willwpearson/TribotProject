@@ -5,8 +5,12 @@ import tri.controller.*;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
+
+import java.util.Calendar;
 
 import java.net.*;
 import java.io.*;
@@ -15,9 +19,12 @@ public class Tribot
 {
 	private TriController appController;
 	
+	private Calendar time;
+	
 	private List<String> rawInputVals;
 	private List<String> sortedArbPairs;
 	private HashMap<String, Double> arbVals;
+	private HashMap<Integer, String> arbPairs;
 	
 	private Scanner appScanner;
 	private URL valueSite;
@@ -30,9 +37,12 @@ public class Tribot
 		rawInputVals = new ArrayList<String>();
 		sortedArbPairs = new ArrayList<String>();
 		arbVals = new HashMap<String, Double>();
+		arbPairs = new HashMap<Integer, String>();
+		
+		time = Calendar.getInstance();
 	}
 	
-	public HashMap<String, Double> readToListFromDoc()
+	public void initializeMapFromFile()
 	{
 		arbitrageFile = IOController.loadFromFile(appController, fileName);
 		
@@ -58,8 +68,17 @@ public class Tribot
 			
 			arbVals.put(currencyPair, last);
 		}
+	}
+	
+	public void initializeMapToMap()
+	{
+		int counter = 0;
+		String [] keyValues = (String[]) arbVals.keySet().toArray();
 		
-		return arbVals;
+		while(counter < keyValues.length)
+		{
+			arbPairs.put(counter, keyValues[counter]);
+		}
 	}
 	
 	public void saveToDrive(String url)
@@ -78,7 +97,8 @@ public class Tribot
 			
 	        inputReader.close();
 			
-	        IOController.saveToFile(appController, rawInputVals.toString(), "/Users/optimii/Documents/Tribot Aribtrage Outputs");
+	        IOController.saveToFile(appController, rawInputVals.toString(), "/Users/optimii/General-Programming/TribotProject");
+	        fileName = "Saved Stream" + time.get(Calendar.HOUR_OF_DAY) + " - " + time.get(Calendar.MINUTE) + ".txt";
 		}
 		catch(Exception error)
 		{
@@ -86,12 +106,34 @@ public class Tribot
 		}
 	}
 	
-	public String calculateArbitrage()
+	public List<String> calculateArbitrageTrios()
 	{
-		String values = "";
+		initializeMapFromFile();
+		initializeMapToMap();
 		
-		//May need list for this, output the list to the view as a String. Use multiple lists or 2DArray to coordinate matching values.
+		List<String> arbTrios = new ArrayList<String>();
 		
-		return values;
+		for(int i = 0; i < arbPairs.size(); i++)
+		{
+			String arbitrageTrioValue = "";
+			String arbPair = "";
+			String value = "";
+			
+			arbPair = arbPairs.get(i);
+			value = arbVals.get(arbPair).toString();
+			
+			arbitrageTrioValue = arbPair + "," + value;
+			
+			arbTrios.add(arbitrageTrioValue);
+		}
+		
+		return arbTrios;
+	}
+	
+	public List<String> calculateArbitrage()
+	{
+		
+		
+		return sortedArbPairs;
 	}
 }

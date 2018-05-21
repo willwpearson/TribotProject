@@ -26,11 +26,7 @@ public class TriController
 	
 	public String passArbitrage()
 	{
-		String outputFinal = "";
-		
-		outputFinal = tribot.calculateArbitrage();
-		
-		return outputFinal;
+		return tribot.calculateArbitrage().toString();
 	}
 	
 	public void handleErrors(Exception error)
