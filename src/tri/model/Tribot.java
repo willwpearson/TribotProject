@@ -48,7 +48,12 @@ public class Tribot
 		
 		appScanner = new Scanner(arbitrageFile);
 		//While loop for the scanner to gather the data.
-		while(appScanner.hasNext())
+		
+		//Add a condition to remove all extraneous text, unneeded words and punctuation.
+		
+		boolean scanNext = false;
+		
+		while(scanNext == false)
 		{
 			//currencyPair, last
 			String currencyPair = "";
@@ -67,6 +72,11 @@ public class Tribot
 			}
 			
 			arbVals.put(currencyPair, last);
+			
+			if(!appScanner.hasNext() || !appScanner.hasNextDouble())
+			{
+				scanNext = true;
+			}
 		}
 	}
 	
