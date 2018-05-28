@@ -46,48 +46,35 @@ public class Tribot
 	{
 		arbitrageFile = IOController.loadFromFile(appController, fileName);
 		
-		appScanner = new Scanner(arbitrageFile);
+		appScanner = new Scanner(removeUnnecessary(arbitrageFile));
 		//While loop for the scanner to gather the data.
 		
-		//Add a condition to remove all extraneous text, unneeded words and punctuation.
-		
-		boolean scanNext = false;
-		
-		while(scanNext == false)
+		while(appScanner.hasNext())
 		{
 			//currencyPair, last
 			String currencyPair = "";
 			double last = 0.0;
-			//Checker for doubles because we only need the first
-			boolean firstDouble = true;
 			
-			if(!appScanner.hasNextDouble())
-			{
-				currencyPair = appScanner.next();
-			}
-			if(appScanner.hasNextDouble() && firstDouble == true)
-			{
-				firstDouble = false;
-				last = appScanner.nextDouble();
-			}
+			currencyPair = appScanner.next();
+			last = appScanner.nextDouble();
 			
 			arbVals.put(currencyPair, last);
-			
-			if(!appScanner.hasNext() || !appScanner.hasNextDouble())
-			{
-				scanNext = true;
-			}
 		}
+		
+		System.out.println(arbVals.toString());
+		
+		appScanner.close();
 	}
 	
 	public void initializeMapToMap()
 	{
 		int counter = 0;
-		String [] keyValues = (String[]) arbVals.keySet().toArray();
+		Object [] keyValues = arbVals.keySet().toArray();
 		
 		while(counter < keyValues.length)
 		{
-			arbPairs.put(counter, keyValues[counter]);
+			arbPairs.put(counter, (String) keyValues[counter]);
+			counter++;
 		}
 	}
 	
@@ -173,6 +160,7 @@ public class Tribot
 			}
 		}
 		
+		System.out.println(arbTrios.toString());
 		return arbTrios;
 	}
 	
@@ -206,5 +194,47 @@ public class Tribot
 		gapFinal = (((1 / first) * 0.9975) * ((1 / second) * 0.9975) * ((1/ third) * 0.9975)) - 1;
 		
 		return gapFinal;
+	}
+	
+	private String removeUnnecessary(String currentString)
+	{
+		String punctuation = ",'?!:;\"(){}^[]<>-";
+		int spaceCount = 0;
+		
+		String scrubbedString = "";
+		for(int i = 0; i < currentString.length(); i++)
+		{
+			if(currentString.charAt(i) == ':' || currentString.charAt(i) == ',')
+			{
+				scrubbedString += " ";
+				spaceCount++;
+			}
+			else if(punctuation.indexOf(currentString.charAt(i)) == -1)
+			{
+				scrubbedString += currentString.charAt(i);
+			}
+		}
+		System.out.println(scrubbedString);
+		
+		String finalScrub = "";
+		Scanner stringScan = new Scanner(scrubbedString);
+		int pairCount = 0;
+		while(stringScan.hasNext())
+		{
+			if(pairCount % 19 == 0)
+			{
+				finalScrub += stringScan.next() + " ";
+			}
+			if(stringScan.next().equals("last"))
+			{
+				finalScrub += stringScan.nextDouble() + " ";
+			}
+			pairCount++;
+		}
+		stringScan.close();
+		
+		System.out.println(finalScrub);
+		
+		return finalScrub;
 	}
 }
