@@ -77,7 +77,7 @@ public class Tribot
 			counter++;
 		}
 		
-		System.out.println(arbPairs.toString());
+//		System.out.println(arbPairs.toString());
 	}
 	
 	public void saveToDrive(String url)
@@ -122,7 +122,7 @@ public class Tribot
 			arbTrios.add(arbPair);
 		}
 		
-		System.out.println(arbTrios.toString());
+//		System.out.println(arbTrios.toString());
 		
 		List<String> tempList = new ArrayList<String>(arbTrios);
 		arbTrios.clear();
@@ -193,7 +193,23 @@ public class Tribot
 			}
 		}
 		
-		System.out.println(arbTrios.toString());
+		//Special case for BTCD removal.
+		for(int i = 0; i < arbTrios.size(); i++)
+		{
+			Scanner specialScan = new Scanner(arbTrios.get(i));
+			if(!specialScan.next().contains("BTCD"))
+			{
+				if(!specialScan.next().contains("BTCD"))
+				{
+					if(specialScan.next().contains("BTCD"))
+					{
+						arbTrios.remove(i);
+					}
+				}
+			}
+		}
+		
+//		System.out.println(arbTrios.toString());
 		return arbTrios;
 	}
 	
@@ -212,7 +228,7 @@ public class Tribot
 			
 			Double arbGap = calculateGap(firstPair, secondPair, thirdPair);
 			
-			finalArbTrio.add("\n" + arbTrios.get(i) + ":" + arbGap);
+			finalArbTrio.add("\n" + (i + 1) + ") " + arbTrios.get(i) + " : " + arbGap);
 			
 			trioScanner.close();
 		}

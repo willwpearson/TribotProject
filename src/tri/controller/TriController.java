@@ -3,6 +3,10 @@ package tri.controller;
 import tri.view.*;
 import tri.model.Tribot;
 
+import java.util.Scanner;
+import java.util.List;
+import java.util.ArrayList;
+
 public class TriController 
 {
 	private Tribot tribot;

@@ -51,10 +51,10 @@ public class TriPanel extends JPanel
 	
 	public void setupPanel()
 	{
-		this.setBackground(Color.CYAN);
+		this.setBackground(Color.DARK_GRAY);
 		this.setLayout(appLayout);
 		
-		this.add(outputField);
+		this.add(triScrollPane);
 		this.add(inputButton);
 		this.add(inputArea);
 	}
@@ -80,7 +80,7 @@ public class TriPanel extends JPanel
 			public void actionPerformed(ActionEvent click)
 			{
 				appController.passToTribot(inputArea.getText());
-				outputField.setText(appController.passArbitrage());//Add method of calculation in the blank quotes <------
+				outputField.setText(appController.passArbitrage());
 			}
 		});
 	}
