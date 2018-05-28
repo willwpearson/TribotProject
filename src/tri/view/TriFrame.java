@@ -24,6 +24,7 @@ public class TriFrame extends JFrame
 		this.setTitle("Triangular Arbitrage Bot");
 		this.setSize(500, 500);
 		this.setVisible(true);
+		this.setResizable(false);
 	}
 	
 	public TriController getTriController()

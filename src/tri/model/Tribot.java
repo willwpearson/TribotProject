@@ -212,7 +212,7 @@ public class Tribot
 			
 			Double arbGap = calculateGap(firstPair, secondPair, thirdPair);
 			
-			finalArbTrio.add(arbTrios.get(i) + ", " + arbGap + "\n");
+			finalArbTrio.add("\n" + arbTrios.get(i) + ":" + arbGap);
 			
 			trioScanner.close();
 		}
@@ -232,7 +232,6 @@ public class Tribot
 	private String removeUnnecessary(String currentString)
 	{
 		String punctuation = ",'?!:;\"(){}^[]<>-";
-		int spaceCount = 0;
 		
 		String scrubbedString = "";
 		for(int i = 0; i < currentString.length(); i++)
@@ -240,7 +239,6 @@ public class Tribot
 			if(currentString.charAt(i) == ':' || currentString.charAt(i) == ',')
 			{
 				scrubbedString += " ";
-				spaceCount++;
 			}
 			else if(punctuation.indexOf(currentString.charAt(i)) == -1)
 			{

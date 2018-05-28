@@ -1,11 +1,13 @@
 package tri.view;
 
 import javax.swing.JPanel;
+
 import tri.controller.TriController;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.SpringLayout;
+import javax.swing.JScrollPane;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -17,8 +19,9 @@ public class TriPanel extends JPanel
 	private SpringLayout appLayout;
 	
 	private JButton inputButton;
-	private JTextField outputField;
-	private JTextArea inputArea;
+	private JTextArea outputField;
+	private JTextField inputArea;
+	private JScrollPane triScrollPane;
 	
 	public TriPanel(TriController appController)
 	{
@@ -27,12 +30,23 @@ public class TriPanel extends JPanel
 		appLayout = new SpringLayout();
 		
 		inputButton = new JButton("Input Poloniex URL");
-		outputField = new JTextField();
-		inputArea = new JTextArea();
+		outputField = new JTextArea(10, 50);
+		inputArea = new JTextField(20);
+		triScrollPane = new JScrollPane();
 		
+		setupScrollPane();
 		setupPanel();
 		setupLayout();
 		setupListeners();
+	}
+	
+	private void setupScrollPane()
+	{
+		triScrollPane.setViewportView(outputField);
+		triScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		triScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		outputField.setLineWrap(true);
+		outputField.setWrapStyleWord(true);
 	}
 	
 	public void setupPanel()
@@ -47,10 +61,10 @@ public class TriPanel extends JPanel
 	
 	public void setupLayout()
 	{
-		appLayout.putConstraint(SpringLayout.NORTH, outputField, 0, SpringLayout.NORTH, this);
-		appLayout.putConstraint(SpringLayout.WEST, outputField, 0, SpringLayout.WEST, this);
-		appLayout.putConstraint(SpringLayout.EAST, outputField, 0, SpringLayout.EAST, this);
-		appLayout.putConstraint(SpringLayout.SOUTH, outputField, 0, SpringLayout.NORTH, inputArea);
+		appLayout.putConstraint(SpringLayout.NORTH, triScrollPane, 0, SpringLayout.NORTH, this);
+		appLayout.putConstraint(SpringLayout.WEST, triScrollPane, 0, SpringLayout.WEST, this);
+		appLayout.putConstraint(SpringLayout.EAST, triScrollPane, 0, SpringLayout.EAST, this);
+		appLayout.putConstraint(SpringLayout.SOUTH, triScrollPane, 0, SpringLayout.NORTH, inputArea);
 		appLayout.putConstraint(SpringLayout.NORTH, inputButton, 0, SpringLayout.NORTH, inputArea);
 		appLayout.putConstraint(SpringLayout.SOUTH, inputButton, 0, SpringLayout.SOUTH, inputArea);
 		appLayout.putConstraint(SpringLayout.EAST, inputButton, 0, SpringLayout.EAST, this);
