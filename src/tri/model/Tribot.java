@@ -61,7 +61,7 @@ public class Tribot
 			arbVals.put(currencyPair, last);
 		}
 		
-		System.out.println(arbVals.toString());
+		//System.out.println(arbVals.toString());
 		
 		appScanner.close();
 	}
@@ -76,6 +76,8 @@ public class Tribot
 			arbPairs.put(counter, (String) keyValues[counter]);
 			counter++;
 		}
+		
+		System.out.println(arbPairs.toString());
 	}
 	
 	public void saveToDrive(String url)
@@ -89,7 +91,7 @@ public class Tribot
 	        while ((inputLine = inputReader.readLine()) != null)
 	        {
 	        	rawInputVals.add(inputLine);
-	        	System.out.println(inputLine);
+	        	//System.out.println(inputLine);
 	        }
 			
 	        inputReader.close();
@@ -120,6 +122,8 @@ public class Tribot
 			arbTrios.add(arbPair);
 		}
 		
+		System.out.println(arbTrios.toString());
+		
 		List<String> tempList = new ArrayList<String>(arbTrios);
 		arbTrios.clear();
 		
@@ -128,31 +132,60 @@ public class Tribot
 		//First Value
 		for(int i = 0; i < tempList.size(); i++)
 		{
+			String temp1 = tempList.get(i);
+			String temp1_1 = tempList.get(i).substring(0, 3);
 			String temp1_2 = tempList.get(i).substring(4);
 			//Second Value
-			for(int j = 1; j < tempList.size(); j++)
+			for(int j = i; j < tempList.size(); j++)
 			{
+				String temp2 = tempList.get(j);
 				String temp2_1 = tempList.get(j).substring(0, 3);
+				String temp2_2 = tempList.get(j).substring(4);
 				
-				if(temp1_2.equals(temp2_1))
+				if(!temp1.equals(temp2))
 				{
-					String temp2_2 = tempList.get(j).substring(4);
-					
-					//Third Value
-					for(int k = 2; k < tempList.size(); k++)
+					if(temp1_1.equals(temp2_1) || temp1_1.equals(temp2_2) || temp1_2.equals(temp2_1) || temp1_2.equals(temp2_2))
 					{
-						String temp3_1 = tempList.get(i).substring(0, 3);
-						
-						if(temp2_2.equals(temp3_1))
+						//Third Value
+						for(int k = j; k < tempList.size(); k++)
 						{
-							String temp1_1 = tempList.get(i).substring(0, 3);
-							String temp3_2 = tempList.get(k).substring(4);
+							String temp3 = tempList.get(k);
+							String trioToAdd = "";
 							
-							if(temp1_1.equals(temp3_2))
+							if(!temp2.equals(temp3))
 							{
-								String trioToAdd = temp1_1 + "_" + temp1_2 + " " + temp2_1 + "_" + temp2_2 + " " + temp3_1 + "_" + temp3_2;
-								
-								arbTrios.add(trioToAdd);
+								if(temp1_1.equals(temp2_1))
+								{
+									if(temp3.contains(temp1_2) && temp3.contains(temp2_2))
+									{
+										trioToAdd = temp1_1 + "_" + temp1_2 + " " + temp2_1 + "_" + temp2_2 + " " + temp3;
+										arbTrios.add(trioToAdd);
+									}
+								}
+								else if(temp1_2.equals(temp2_1))
+								{
+									if(temp3.contains(temp1_1) && temp3.contains(temp2_2))
+									{
+										trioToAdd = temp1_1 + "_" + temp1_2 + " " + temp2_1 + "_" + temp2_2 + " " + temp3;
+										arbTrios.add(trioToAdd);
+									}
+								}
+								else if(temp1_1.equals(temp2_2))
+								{
+									if(temp3.contains(temp1_2) && temp3.contains(temp2_1))
+									{
+										trioToAdd = temp1_1 + "_" + temp1_2 + " " + temp2_1 + "_" + temp2_2 + " " + temp3;
+										arbTrios.add(trioToAdd);
+									}
+								}
+								else if(temp1_2.equals(temp2_2))
+								{
+									if(temp3.contains(temp1_1) && temp3.contains(temp2_1))
+									{
+										trioToAdd = temp1_1 + "_" + temp1_2 + " " + temp2_1 + "_" + temp2_2 + " " + temp3;
+										arbTrios.add(trioToAdd);
+									}
+								}
 							}
 						}
 					}
@@ -179,7 +212,7 @@ public class Tribot
 			
 			Double arbGap = calculateGap(firstPair, secondPair, thirdPair);
 			
-			finalArbTrio.add(arbTrios.get(i) + ", " + arbGap);
+			finalArbTrio.add(arbTrios.get(i) + ", " + arbGap + "\n");
 			
 			trioScanner.close();
 		}
@@ -214,7 +247,7 @@ public class Tribot
 				scrubbedString += currentString.charAt(i);
 			}
 		}
-		System.out.println(scrubbedString);
+		//System.out.println(scrubbedString);
 		
 		String finalScrub = "";
 		Scanner stringScan = new Scanner(scrubbedString);
@@ -233,7 +266,7 @@ public class Tribot
 		}
 		stringScan.close();
 		
-		System.out.println(finalScrub);
+		//System.out.println(finalScrub);
 		
 		return finalScrub;
 	}

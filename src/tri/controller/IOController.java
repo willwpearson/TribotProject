@@ -15,7 +15,7 @@ public class IOController
 		if(path.indexOf(".txt") == -1)
 		{
 			savePath = "Saved Stream" + time.get(Calendar.HOUR_OF_DAY) + " - " + time.get(Calendar.MINUTE) + ".txt";
-			System.out.println(savePath);
+			//System.out.println(savePath);
 		}
 		else
 		{
