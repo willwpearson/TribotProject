@@ -49,6 +49,9 @@ public class TriPanel extends JPanel
 		triScrollPane.setViewportView(outputField);
 		triScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		triScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		triScrollPane.setBackground(Color.LIGHT_GRAY);
+		outputField.setBackground(Color.LIGHT_GRAY);
+		outputField.setEditable(false);
 		outputField.setLineWrap(true);
 		outputField.setWrapStyleWord(true);
 	}
