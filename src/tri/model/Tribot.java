@@ -114,7 +114,6 @@ public class Tribot
 		
 		for(int i = 0; i < arbPairs.size(); i++)
 		{
-			String arbitrageTrioValue = "";
 			String arbPair = "";
 			
 			arbPair = arbPairs.get(i);
@@ -144,37 +143,31 @@ public class Tribot
 				
 				if(!temp1.equals(temp2))
 				{
-					if(temp1_1.equals(temp2_1) || temp1_1.equals(temp2_2) || temp1_2.equals(temp2_1) || temp1_2.equals(temp2_2))
+					if(temp1_2.equals(temp2_1) || temp1_2.equals(temp2_2))
 					{
 						//Third Value
 						for(int k = j; k < tempList.size(); k++)
 						{
 							String temp3 = tempList.get(k);
+							String temp3_1 = tempList.get(k).substring(0, 3);
+							String temp3_2 = tempList.get(k).substring(4);
 							String trioToAdd = "";
 							
 							if(!temp2.equals(temp3))
 							{
-								if(temp1_1.equals(temp2_1))
-								{
-									if(temp3.contains(temp1_2) && temp3.contains(temp2_2))
-									{
-										trioToAdd = temp1_1 + "_" + temp1_2 + " " + temp2_1 + "_" + temp2_2 + " " + temp3;
-										arbTrios.add(trioToAdd);
-									}
-								}
-								else if(temp1_2.equals(temp2_1))
+								if(temp1_2.equals(temp2_1))
 								{
 									if(temp3.contains(temp1_1) && temp3.contains(temp2_2))
 									{
-										trioToAdd = temp1_1 + "_" + temp1_2 + " " + temp2_1 + "_" + temp2_2 + " " + temp3;
-										arbTrios.add(trioToAdd);
-									}
-								}
-								else if(temp1_1.equals(temp2_2))
-								{
-									if(temp3.contains(temp1_2) && temp3.contains(temp2_1))
-									{
-										trioToAdd = temp1_1 + "_" + temp1_2 + " " + temp2_1 + "_" + temp2_2 + " " + temp3;
+										if(temp3_1.equals(temp2_2) || temp3_2.equals(temp1_1))
+										{
+											trioToAdd = temp1_1 + "_" + temp1_2 + " " + temp2_1 + "_" + temp2_2 + " " + temp3_2 + "_" + temp3_1;
+											arbVals.put(temp3_2 + "_" + temp3_1, 1/arbVals.get(temp3));
+										}
+										else
+										{
+											trioToAdd = temp1_1 + "_" + temp1_2 + " " + temp2_1 + "_" + temp2_2 + " " + temp3;
+										}
 										arbTrios.add(trioToAdd);
 									}
 								}
@@ -182,7 +175,16 @@ public class Tribot
 								{
 									if(temp3.contains(temp1_1) && temp3.contains(temp2_1))
 									{
-										trioToAdd = temp1_1 + "_" + temp1_2 + " " + temp2_1 + "_" + temp2_2 + " " + temp3;
+										if(temp3_1.equals(temp2_1))
+										{
+											trioToAdd = temp1_1 + "_" + temp1_2 + " " + temp2_2 + "_" + temp2_1 + " " + temp3_2 + "_" + temp3_1;
+											arbVals.put(temp3_2 + "_" + temp3_1, 1/arbVals.get(temp3));
+										}
+										else
+										{
+											trioToAdd = temp1_1 + "_" + temp1_2 + " " + temp2_2 + "_" + temp2_1 + " " + temp3;
+										}
+										arbVals.put(temp2_2 + "_" + temp2_1, 1/arbVals.get(temp2));
 										arbTrios.add(trioToAdd);
 									}
 								}
@@ -209,7 +211,7 @@ public class Tribot
 			}
 		}
 		
-//		System.out.println(arbTrios.toString());
+		System.out.println(arbTrios.toString());
 		return arbTrios;
 	}
 	
@@ -223,8 +225,11 @@ public class Tribot
 			
 			//Retrieve values for each part of the trio.
 			Double firstPair = arbVals.get(trioScanner.next());
+//			System.out.println(firstPair + "");
 			Double secondPair = arbVals.get(trioScanner.next());
+//			System.out.println(secondPair + "");
 			Double thirdPair = arbVals.get(trioScanner.next());
+//			System.out.println(thirdPair + "");
 			
 			Double arbGap = calculateGap(firstPair, secondPair, thirdPair);
 			
@@ -247,7 +252,7 @@ public class Tribot
 	
 	private String removeUnnecessary(String currentString)
 	{
-		String punctuation = ",'?!:;\"(){}^[]<>-";
+		String punctuation = ",'?!:;\"(){}^[]<>";
 		
 		String scrubbedString = "";
 		for(int i = 0; i < currentString.length(); i++)
