@@ -233,7 +233,7 @@ public class Tribot
 			
 			Double arbGap = calculateGap(firstPair, secondPair, thirdPair);
 			
-			finalArbTrio.add("\n" + (i + 1) + ") " + arbTrios.get(i) + " : " + arbGap);
+			finalArbTrio.add("\n\n" + (i + 1) + ") " + arbTrios.get(i) + " : " + arbGap);
 			
 			trioScanner.close();
 		}
@@ -245,7 +245,7 @@ public class Tribot
 	{
 		Double gapFinal = 0.0;
 		
-		gapFinal = (((1 / first) * 0.9975) * ((1 / second) * 0.9975) * ((1/ third) * 0.9975)) - 1;
+		gapFinal = (((1 / first) * 0.9984) * ((1 / second) * 0.9984) * ((third) * 0.9984)) - 1;
 		
 		return gapFinal;
 	}

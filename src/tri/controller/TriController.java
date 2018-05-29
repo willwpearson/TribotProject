@@ -28,9 +28,9 @@ public class TriController
 		tribot.saveToDrive(url);
 	}
 	
-	public String passArbitrage()
+	public List<String> passArbitrage()
 	{
-		return tribot.calculateArbitrage().toString();
+		return tribot.calculateArbitrage();
 	}
 	
 	public void handleErrors(Exception error)

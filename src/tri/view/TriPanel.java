@@ -2,6 +2,10 @@ package tri.view;
 
 import javax.swing.JPanel;
 
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import tri.controller.TriController;
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -80,7 +84,7 @@ public class TriPanel extends JPanel
 			public void actionPerformed(ActionEvent click)
 			{
 				appController.passToTribot(inputArea.getText());
-				outputField.setText(appController.passArbitrage());
+				outputField.setText(appController.passArbitrage().toString());
 			}
 		});
 	}
