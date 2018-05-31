@@ -132,13 +132,13 @@ public class Tribot
 		for(int i = 0; i < tempList.size(); i++)
 		{
 			String temp1 = tempList.get(i);
-			String temp1_1 = tempList.get(i).substring(0, 3);
+			String temp1_1 = tempList.get(i).substring(0, tempList.get(i).indexOf("_"));
 			String temp1_2 = tempList.get(i).substring(4);
 			//Second Value
 			for(int j = i; j < tempList.size(); j++)
 			{
 				String temp2 = tempList.get(j);
-				String temp2_1 = tempList.get(j).substring(0, 3);
+				String temp2_1 = tempList.get(j).substring(0, tempList.get(j).indexOf("_"));
 				String temp2_2 = tempList.get(j).substring(4);
 				
 				if(!temp1.equals(temp2))
@@ -149,7 +149,7 @@ public class Tribot
 						for(int k = j; k < tempList.size(); k++)
 						{
 							String temp3 = tempList.get(k);
-							String temp3_1 = tempList.get(k).substring(0, 3);
+							String temp3_1 = tempList.get(k).substring(0, tempList.get(k).indexOf("_"));
 							String temp3_2 = tempList.get(k).substring(4);
 							String trioToAdd = "";
 							
